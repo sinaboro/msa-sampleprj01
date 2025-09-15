@@ -1,0 +1,3 @@
+spring:
+  kafka:
+    kafka-server: localhost:9092

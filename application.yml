@@ -1,0 +1,26 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+spring :
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ordermsa?useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
+  jpa:
+    database: mysql
+    #    InnoDB??
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    show_sql: true
+server:
+  # 0으로 세팅하면 spring이 임의로 port를 할당
+  # 임의로 포트번호를 할당해도 상관없다. 이유는 apigateway가 eureka에게 member-service
+  # port번호을 요청받아서 내부적으로 처리하기 때문에 개발자가 굳지 member-service port를 알 필요성이 없다.
+  port: 0
