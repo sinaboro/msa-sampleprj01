@@ -13,3 +13,8 @@ docker run --name redis-container -d -p 6379:6379 redis
 # 4. rabbitmq설치
 docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
 
+# 5. 각 프로젝트 내용
+### frist : 내부 통신을 RestTemplate 이용
+### second : 내부 통신을 feign 및 kafka 이용
+### third : config-server를 통해 마이크로서비스의 환경설정(yml)을 중앙(github)에서 관리
+
