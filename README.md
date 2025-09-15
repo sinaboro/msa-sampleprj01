@@ -18,3 +18,5 @@ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:management
 ### second : 내부 통신을 feign 및 kafka 이용
 ### third : config-server를 통해 마이크로서비스의 환경설정(yml)을 중앙(github)에서 관리
 
+#### 출처 : 인프런 : 빠르게 배우는 Spring Cloud 기초(MSA)
+
