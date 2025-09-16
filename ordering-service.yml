@@ -14,4 +14,8 @@ resilience4j:
         slidingWindowType: COUNT_BASED  # 요청 개수를 기준으로 실패율을 계산하도록 설정
         minimumNumberOfCalls: 4  # 최소 정상적인 요청을 4번 실행된 이후 Circuit Breaker 활성화
         ignoreExceptions:
+<<<<<<< HEAD
           - java.lang.IllegalArgumentException  # IllegalArgumentException 무시
+=======
+          - java.lang.IllegalArgumentException  # IllegalArgumentException 무시
+>>>>>>> 9e764e51cb4226d0537906527863360b1368bc2c
