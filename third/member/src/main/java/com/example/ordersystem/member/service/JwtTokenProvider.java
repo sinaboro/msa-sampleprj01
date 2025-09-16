@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -12,6 +13,12 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
+/*
+   github에 새로 yml파일이 변경되면,
+   configserver가 받아서 rabbitbmq 저장하면
+   member, ordering, product가 rabbitmq저장된 yml내용을 가져와서 실시간 변경한다.
+*/
+@RefreshScope
 public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private int expiration;

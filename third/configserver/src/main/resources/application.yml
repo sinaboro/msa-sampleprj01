@@ -2,6 +2,11 @@ server:
   port: 8888
 
 spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   cloud:
     config:
       server:
@@ -12,3 +17,13 @@ spring:
           # 만약 private repo일 경우에는
           # username: github사용자명
           # password: 토큰값
+  bus:
+    enabled: true
+
+#actuator관련 설정. 어떤 엔드포인트를 사용할지에 대한 설정.
+management:
+  endpoint:
+    web:
+      exposure:
+        # config서버가 제공해주는 endpoint, busrefresh를 통해 실시간 config정보 갱신
+        include: busrefresh, health # env, info, refresh 등도 활용 가능

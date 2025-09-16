@@ -44,6 +44,7 @@ dependencies {
 
 	// config서버 사용을 위한 client의존성 추가
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 }
 
 dependencyManagement {
