@@ -37,7 +37,8 @@ public class ProductController {
     // 상품 갯수 조회
     @GetMapping("{id}")
     public ResponseEntity<?> productDetail(@PathVariable("id") Long id,
-                                           @RequestHeader("X-User-Id") String userId) {
+                                           @RequestHeader("X-User-Id") String userId) throws InterruptedException {
+//        Thread.sleep(3000L);
         ProductResDto productResDto = productService.productDetail(id);
         return new ResponseEntity<>(productResDto, HttpStatus.OK);
     }

@@ -5,6 +5,7 @@ import com.example.ordersystem.ordering.dto.OrderCreateDto;
 import com.example.ordersystem.ordering.dto.ProductDto;
 import com.example.ordersystem.ordering.dto.ProductUpdateStockDto;
 import com.example.ordersystem.ordering.repository.OrderingRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.*;
@@ -78,7 +79,9 @@ public class OrderingService {
         orderingRepository.save(ordering);
         return  ordering;
     }
-
+// circuitbreaker는 해당 name을 가진 해당 메소드에 대해서만 유효
+    // 즉, circuit이 open되어도 다른 메소드에서 product-service에 요청을 보내는것은 허용
+    @CircuitBreaker(name = "productService", fallbackMethod = "fallbackProductService" )
     public Ordering orderFeignKafkaCreate(OrderCreateDto orderDto, String userId) {
 
         ProductDto productDto = productFeign.getProductId(orderDto.getProductId(), userId);
@@ -106,6 +109,18 @@ public class OrderingService {
                 .build();
         orderingRepository.save(ordering);
         return  ordering;
+    }
+
+    /* 반환 타입 , 매개변수 형식은
+        @CircuitBreaker(name = "productService", fallbackMethod = "fallbackProductService" )
+        public Ordering orderFeignKafkaCreate(OrderCreateDto orderDto, String userId) {}
+
+        @CircuitBreaker가 참조하고있는 메소드에 반환타입과 매개변수를 그래도 기입하면된다.
+        
+        Throwable : 에러가 발생하면 에러정보가 여기로 전달
+     */
+    public Ordering fallbackProductService(OrderCreateDto orderDto, String userId, Throwable throwable) {
+        throw new RuntimeException("상품서비스가 응답이 없어, 에러가 발생했습니다. 나 중에 다시 시도해주세요");
     }
 
 }
